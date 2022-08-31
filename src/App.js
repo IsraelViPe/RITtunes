@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Album from './pages/Album';
 import Favorites from './pages/Favorites';
+import Loading from './pages/Loading';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
@@ -17,6 +18,7 @@ class App extends React.Component {
         <Route path="/profile" component={ Profile } />
         <Route path="/favorites" component={ Favorites } />
         <Route path="/album/:id" component={ Album } />
+        <Route path="/loading" component={ Loading } />
         <Route path="/search" component={ Search } />
         <Route exact path="/" component={ Login } />
         <Route component={ NotFound } />
