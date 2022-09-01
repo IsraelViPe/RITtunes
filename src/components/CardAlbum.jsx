@@ -15,7 +15,9 @@ export default class CardAlbum extends Component {
         <Link
           data-testid={ `link-to-album-${collectionId}` }
           to={ `album/${collectionId}` }
-        />
+        >
+          Album
+        </Link>
       </div>
     );
   }
@@ -25,5 +27,5 @@ CardAlbum.propTypes = {
   collectionName: PropTypes.string.isRequired,
   artistName: PropTypes.string.isRequired,
   artworkUrl100: PropTypes.string.isRequired,
-  collectionId: PropTypes.string.isRequired,
+  collectionId: PropTypes.number.isRequired,
 };

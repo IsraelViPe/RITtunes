@@ -91,7 +91,8 @@ export default class Search extends Component {
 
         <div data-testid="page-search">
           {fetchClicked ? <Loading /> : formSearch }
-          {responseAPI && statusAPI ? albunsRender : noAlbuns }
+          {responseAPI && statusAPI && albunsRender }
+          {responseAPI && !statusAPI && noAlbuns}
         </div>
       </div>
     );
