@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
 
 export default class Album extends Component {
@@ -16,6 +16,7 @@ export default class Album extends Component {
 
   componentDidMount() {
     this.fetchAPI();
+    this.fetchFavorites();
   }
 
   handleCLickFavorite = async ({ target: { id, checked } }) => {
@@ -25,8 +26,8 @@ export default class Album extends Component {
     const { musicList, favoritesList } = this.state;
     const favoritedMusic = musicList
       .find(({ trackId }) => Number(id) === trackId);
-    const isChecked = favoritesList
-      .some(({ trackId }) => Number(id) === trackId);
+    // const isChecked = favoritesList
+    //   .some(({ trackId }) => Number(id) === trackId);
 
     await addSong(favoritedMusic);
     this.setState((prevState) => ({
@@ -39,42 +40,12 @@ export default class Album extends Component {
       this.setState({
         favoritesList: deleteFavorite,
       });
-      console.log(deleteFavorite, checked);
+      this.fetchRemove(favoritedMusic);
     }
     this.setState({
       loading: false,
     });
   };
-
-  // componentDidUpdate() {
-  //   this.handleFavorite = async ({ target: { id, checked } }) => {
-  //     this.setState({
-  //       loading: true,
-  //     });
-  //     const { musicList, favoritesList } = this.state;
-  //     const favoritedMusic = musicList
-  //       .find(({ trackId }) => Number(id) === trackId);
-  //     const isChecked = favoritesList
-  //       .some(({ trackId }) => Number(id) === trackId);
-
-  //     await addSong(favoritedMusic);
-  //     this.setState((prevState) => ({
-  //       favoritesList: [...prevState.favoritesList, favoritedMusic],
-  //     }));
-
-  //     if (!checked) {
-  //       const deleteFavorite = favoritesList
-  //         .filter(({ trackId }) => trackId !== Number(id));
-  //       this.setState({
-  //         favoritesList: deleteFavorite,
-  //       });
-  //       console.log(deleteFavorite, checked);
-  //     }
-  //     this.setState({
-  //       loading: false,
-  //     });
-  //   };
-  // }
 
   fetchAPI = async () => {
     const { match: { params: { id } } } = this.props;
@@ -82,6 +53,27 @@ export default class Album extends Component {
     this.setState({
       albunInfo: await musicRequest[0],
       musicList: await musicRequest,
+    });
+  };
+
+  fetchFavorites = async () => {
+    this.setState({
+      loading: true,
+    });
+    const favoritesStorage = await getFavoriteSongs();
+    this.setState({
+      loading: false,
+      favoritesList: favoritesStorage,
+    });
+  };
+
+  fetchRemove = async (music) => {
+    this.setState({
+      loading: true,
+    });
+    await removeSong(music);
+    this.setState({
+      loading: false,
     });
   };
 
@@ -111,7 +103,7 @@ export default class Album extends Component {
                 previewUrl={ previewUrl }
                 trackId={ trackId }
                 handleCLickFavorite={ this.handleCLickFavorite }
-                handleFavorite={ this.handleFavorite }
+                // handleFavorite={ this.handleFavorite }
                 checked={ favoritesList
                   .some((element) => element.trackId === trackId) }
               />))}
