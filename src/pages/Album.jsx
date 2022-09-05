@@ -40,7 +40,7 @@ export default class Album extends Component {
       this.setState({
         favoritesList: deleteFavorite,
       });
-      this.fetchRemove(favoritedMusic);
+      await this.fetchRemove(favoritedMusic);
     }
     this.setState({
       loading: false,
