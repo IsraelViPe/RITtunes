@@ -35,7 +35,6 @@ export default class Search extends Component {
       statusAPI: fetchAlbuns.length !== 0,
       listAlbuns: await fetchAlbuns,
     });
-    console.log(fetchAlbuns);
   };
 
   render() {
