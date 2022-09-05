@@ -26,8 +26,6 @@ export default class Album extends Component {
     const { musicList, favoritesList } = this.state;
     const favoritedMusic = musicList
       .find(({ trackId }) => Number(id) === trackId);
-    // const isChecked = favoritesList
-    //   .some(({ trackId }) => Number(id) === trackId);
 
     await addSong(favoritedMusic);
     this.setState((prevState) => ({
@@ -103,7 +101,6 @@ export default class Album extends Component {
                 previewUrl={ previewUrl }
                 trackId={ trackId }
                 handleCLickFavorite={ this.handleCLickFavorite }
-                // handleFavorite={ this.handleFavorite }
                 checked={ favoritesList
                   .some((element) => element.trackId === trackId) }
               />))}

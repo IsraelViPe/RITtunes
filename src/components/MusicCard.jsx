@@ -22,8 +22,6 @@ export default class MusicCard extends Component {
             data-testid={ `checkbox-music-${trackId}` }
             id={ trackId }
             onClick={ handleCLickFavorite }
-            // onChange={ handleFavorite }
-            // defaultChecked={ isChecked }
             checked={ checked }
             type="checkbox"
           />
@@ -37,6 +35,6 @@ MusicCard.propTypes = {
   trackName: PropTypes.string.isRequired,
   previewUrl: PropTypes.string.isRequired,
   trackId: PropTypes.number.isRequired,
-  // isChecked: PropTypes.bool.isRequired,
+  checked: PropTypes.bool.isRequired,
   handleCLickFavorite: PropTypes.func.isRequired,
 };
