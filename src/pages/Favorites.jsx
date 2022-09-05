@@ -26,6 +26,7 @@ export default class Favorites extends Component {
   }
 
   removeFavorite = async ({ target: { id } }) => {
+    console.log(id);
     const { favoriteMusics } = this.state;
     this.setState({
       loading: true,
@@ -53,14 +54,16 @@ export default class Favorites extends Component {
                   <MusicCard
                     key={ element.trackId }
                     { ...element }
+                    handleCLickFavorite={ this.removeFavorite }
+                    checked
                   />
-                  <button
+                  {/* <button
                     id={ element.trackId }
                     type="button"
-                    onClick={ this.removeFavorite }
+
                   >
                     Excluir
-                  </button>
+                  </button> */}
                 </>
               )) }
         </div>
