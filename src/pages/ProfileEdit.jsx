@@ -8,7 +8,6 @@ export default class ProfileEdit extends Component {
   state = {
     loading: false,
     clickSubmit: false,
-    userInfo: {},
     editedName: '',
     editedEmail: '',
     editedDescription: '',
@@ -23,22 +22,17 @@ export default class ProfileEdit extends Component {
       });
       const requesUserInfo = await getUser();
       this.setState({
-        userInfo: requesUserInfo,
-      }, () => {
-        this.setState({
-          editedName: requesUserInfo.name,
-          editedEmail: requesUserInfo.email,
-          editedDescription: requesUserInfo.description,
-          editedImage: requesUserInfo.image,
-          loading: false,
-        });
+        editedName: requesUserInfo.name,
+        editedEmail: requesUserInfo.email,
+        editedDescription: requesUserInfo.description,
+        editedImage: requesUserInfo.image,
+        loading: false,
       });
     };
     fetchUser();
   }
 
   handleChange = ({ target: { value, name } }) => {
-    console.log(value);
     this.setState({
       [name]: value,
     });
