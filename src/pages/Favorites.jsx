@@ -26,7 +26,6 @@ export default class Favorites extends Component {
   }
 
   removeFavorite = async ({ target: { id } }) => {
-    console.log(id);
     const { favoriteMusics } = this.state;
     this.setState({
       loading: true,
@@ -50,21 +49,13 @@ export default class Favorites extends Component {
           { loading ? <Loading />
             : favoriteMusics
               .map((element) => (
-                <>
-                  <MusicCard
-                    key={ element.trackId }
-                    { ...element }
-                    handleCLickFavorite={ this.removeFavorite }
-                    checked
-                  />
-                  {/* <button
-                    id={ element.trackId }
-                    type="button"
+                <MusicCard
+                  key={ element.trackId }
+                  { ...element }
+                  handleCLickFavorite={ this.removeFavorite }
+                  checked
+                />
 
-                  >
-                    Excluir
-                  </button> */}
-                </>
               )) }
         </div>
       </div>

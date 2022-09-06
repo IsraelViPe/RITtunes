@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
-import { getUser } from '../services/userAPI';
+import Loading from '../components/Loading';
+import { getUser, updateUser } from '../services/userAPI';
 
 export default class ProfileEdit extends Component {
   state = {
     loading: false,
+    clickSubmit: false,
     userInfo: {},
     editedName: '',
     editedEmail: '',
@@ -35,17 +38,42 @@ export default class ProfileEdit extends Component {
   }
 
   handleChange = ({ target: { value, name } }) => {
+    console.log(value);
     this.setState({
       [name]: value,
     });
   };
 
+  submitProfile = () => {
+    this.setState({
+      loading: true,
+      clickSubmit: true,
+    }, async () => {
+      const { editedName, editedEmail, editedDescription,
+        editedImage } = this.state;
+      const perfilUpdate = {
+        name: editedName,
+        email: editedEmail,
+        image: editedImage,
+        description: editedDescription,
+      };
+
+      await updateUser(perfilUpdate);
+      this.setState({
+        loading: false,
+      });
+    });
+  };
+
   render() {
-    const { userInfo, editedName, editedEmail,
-      editedDescription, editedImage } = this.state;
+    const { clickSubmit, editedName, editedEmail,
+      editedDescription, editedImage, loading } = this.state;
+    const emailValidateRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
     const perfilForm = (
       <form>
-        <label htmlFor="name">
+        <label
+          htmlFor="name"
+        >
           Nome:
           <input
             name="editedName"
@@ -84,12 +112,14 @@ export default class ProfileEdit extends Component {
             value={ editedImage }
             onChange={ this.handleChange }
             data-testid="edit-input-image"
-            type="file"
+            type="text"
           />
         </label>
         <button
+          onClick={ this.submitProfile }
           type="button"
-          // disabled={}
+          disabled={ !editedName || !editedDescription
+            || !editedImage || (!editedEmail || !emailValidateRegex.test(editedEmail)) }
           data-testid="edit-button-save"
         >
           Salvar
@@ -101,7 +131,9 @@ export default class ProfileEdit extends Component {
         <Header />
         <div data-testid="page-profile-edit">
           <h1>Editar Perfil</h1>
-          {perfilForm}
+          {loading ? <Loading /> : perfilForm}
+          {loading && clickSubmit && <Loading /> }
+          {clickSubmit && !loading && <Redirect to="/profile" />}
         </div>
       </div>
     );
