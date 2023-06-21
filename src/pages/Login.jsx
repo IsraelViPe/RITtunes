@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
+import { Container, Logo, Button } from '../styles/login';
 import Loading from '../components/Loading';
 
 export default class Login extends Component {
@@ -32,31 +33,41 @@ export default class Login extends Component {
     const minInputlenght = 3;
     const { inputName, clicked, redirect } = this.state;
     return (
-      <div data-testid="page-login">
-        { clicked && <Loading /> }
-        { redirect && <Redirect to="/search" /> }
-        <h1>Login</h1>
-        <form>
-          <label htmlFor="name">
-            Nome:
-            <input
-              onChange={ this.handleInput }
-              data-testid="login-name-input"
-              name="inputName"
-              type="text"
-            />
-          </label>
-          <button
-            disabled={ inputName.length < minInputlenght }
-            type="button"
-            onClick={ this.handleClick }
-            data-testid="login-submit-button"
-          >
-            Entrar
-          </button>
-        </form>
+      <Container data-testid="page-login">
+        <div className="main">
+          { clicked && <Loading /> }
+          { redirect && <Redirect to="/search" /> }
+          <Logo>
+            <div className="disc">
+              <div className="disc2">
+                <div className="name">R!t</div>
+              </div>
+            </div>
+          </Logo>
+          <h1>Login</h1>
+          <form>
+            <label htmlFor="name">
+              Nome:
+              <input
+                onChange={ this.handleInput }
+                data-testid="login-name-input"
+                name="inputName"
+                type="text"
+              />
+            </label>
+            <Button
+              className="button"
+              disabled={ inputName.length < minInputlenght }
+              type="button"
+              onClick={ this.handleClick }
+              data-testid="login-submit-button"
+            >
+              Entrar
+            </Button>
+          </form>
+        </div>
 
-      </div>
+      </Container>
     );
   }
 }
