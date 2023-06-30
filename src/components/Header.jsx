@@ -2,27 +2,69 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUser } from '../services/userAPI';
-import { Logo } from '../styles/login';
+import images from '../assets/images';
 import Loading from './Loading';
 
 const HeaderNav = styled.header`
-  border: solid 1px white;
   display: flex;
-  flex-direction: column;
-  padding: 30px;
+  position: fixed;
+  justify-content: center;
+  gap: 3rem;
+  align-items: center;
+  background-color: var(--bg-color);
   width: 100%;
 
   nav {
-    /* display: flex; */
+    display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
   }
 
-  p {
-    color : white;
+  li {
+    list-style: none;
+    padding: 0.8rem;
   }
-  
-  
+
+  @media (max-width: 756px) {
+    gap: 0.5rem;
+  }
+`;
+
+const NavLink = styled(Link)`
+  color: var(--sec-color);
+  font-size: 1.5rem;
+  text-decoration: none;
+  outline: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 756px) {
+    font-size: 1rem;
+  }
+`;
+
+const MiniLogo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2rem;
+  width: 100px;
+  height: 100px;
+
+  p {
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--text-color);
+  }
+
+  @media (max-width: 756px) {
+    flex-direction: column;
+    p {
+      display: none;
+    }
+  }
 `;
 
 export default class Header extends Component {
@@ -43,50 +85,31 @@ export default class Header extends Component {
     const { user, loading } = this.state;
     return (
       <HeaderNav data-testid="header-component">
-        <Logo>
-          <div className="disc">
-            <div className="disc2">
-              <div className="name">R!t</div>
-            </div>
-          </div>
-        </Logo>
-        <nav>
-          <li>
-            <Link
-              data-testid="link-to-search"
-              to="/search"
-            >
-              Pesquisa
-
-            </Link>
-          </li>
-          <li>
-            <Link
-              data-testid="link-to-favorites"
-              to="/favorites"
-            >
-              Favoritos
-
-            </Link>
-          </li>
-          <li>
-            <Link
-              data-testid="link-to-profile"
-              to="/profile"
-            >
-              Perfil
-
-            </Link>
-          </li>
-        </nav>
-        { loading ? <Loading /> : (
+        <MiniLogo>
+          <img src={ images.logo } alt="logo" />
           <p data-testid="header-user-name">
             {' '}
             {user.name}
             {' '}
           </p>
-        )}
-
+        </MiniLogo>
+        <nav>
+          <li>
+            <NavLink data-testid="link-to-search" to="/search">
+              Pesquisa
+            </NavLink>
+          </li>
+          <li>
+            <NavLink data-testid="link-to-favorites" to="/favorites">
+              Favoritos
+            </NavLink>
+          </li>
+          <li>
+            <NavLink data-testid="link-to-profile" to="/profile">
+              Perfil
+            </NavLink>
+          </li>
+        </nav>
       </HeaderNav>
     );
   }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import CardAlbum from '../components/CardAlbum';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
-import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import CardAlbum from '../../components/CardAlbum';
+import Header from '../../components/Header';
+import Loading from '../../components/Loading';
+import searchAlbumsAPI from '../../services/searchAlbumsAPI';
+import { Container, SearchForm, AlbunsList } from './SearchStyle';
 
 export default class Search extends Component {
   state = {
@@ -47,25 +48,27 @@ export default class Search extends Component {
     );
 
     const albunsRender = (
-      <div>
+      <AlbunsList>
         <h1>
-          Resultado de álbuns de:
+          Resultado de Álbuns de:
           {' '}
           { artistSearched }
         </h1>
-        { listAlbuns
-          .map(({ collectionName, artistName, artworkUrl100, collectionId }) => (
-            <CardAlbum
-              key={ collectionId }
-              collectionName={ collectionName }
-              artistName={ artistName }
-              artworkUrl100={ artworkUrl100 }
-              collectionId={ collectionId }
-            />))}
-      </div>
+        <div>
+          { listAlbuns
+            .map(({ collectionName, artistName, artworkUrl100, collectionId }) => (
+              <CardAlbum
+                key={ collectionId }
+                collectionName={ collectionName }
+                artistName={ artistName }
+                artworkUrl100={ artworkUrl100 }
+                collectionId={ collectionId }
+              />))}
+        </div>
+      </AlbunsList>
     );
     const formSearch = (
-      <form>
+      <SearchForm>
         <input
           data-testid="search-artist-input"
           value={ searchField }
@@ -82,18 +85,18 @@ export default class Search extends Component {
         >
           Pesquisar
         </button>
-      </form>
+      </SearchForm>
     );
+    if (fetchClicked) return <Loading />;
     return (
-      <div>
+      <>
         <Header />
-
-        <div data-testid="page-search">
-          {fetchClicked ? <Loading /> : formSearch }
+        <Container Container data-testid="page-search">
+          {formSearch }
           {responseAPI && statusAPI && albunsRender }
           {responseAPI && !statusAPI && noAlbuns}
-        </div>
-      </div>
+        </Container>
+      </>
     );
   }
 }
