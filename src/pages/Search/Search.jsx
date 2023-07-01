@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import CardAlbum from '../../components/CardAlbum';
-import Header from '../../components/Header';
 import Loading from '../../components/Loading';
 import searchAlbumsAPI from '../../services/searchAlbumsAPI';
-import { Container, SearchForm, AlbunsList } from './SearchStyle';
+import { Container, SearchForm, AlbunsList, CardContainer } from './SearchStyle';
 
 export default class Search extends Component {
   state = {
@@ -54,7 +53,7 @@ export default class Search extends Component {
           {' '}
           { artistSearched }
         </h1>
-        <div>
+        <CardContainer>
           { listAlbuns
             .map(({ collectionName, artistName, artworkUrl100, collectionId }) => (
               <CardAlbum
@@ -64,7 +63,7 @@ export default class Search extends Component {
                 artworkUrl100={ artworkUrl100 }
                 collectionId={ collectionId }
               />))}
-        </div>
+        </CardContainer>
       </AlbunsList>
     );
     const formSearch = (
@@ -89,14 +88,11 @@ export default class Search extends Component {
     );
     if (fetchClicked) return <Loading />;
     return (
-      <>
-        <Header />
-        <Container Container data-testid="page-search">
-          {formSearch }
-          {responseAPI && statusAPI && albunsRender }
-          {responseAPI && !statusAPI && noAlbuns}
-        </Container>
-      </>
+      <Container Container data-testid="page-search">
+        {formSearch }
+        {responseAPI && statusAPI && albunsRender }
+        {responseAPI && !statusAPI && noAlbuns}
+      </Container>
     );
   }
 }

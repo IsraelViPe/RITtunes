@@ -4,10 +4,11 @@ const Global = createGlobalStyle`
 
 :root {
     --font-base: 'Bayon',sans-serif;
+    --font-text: Verdana, Geneva, Tahoma, sans-serif;
 
     --text-color: white;
-    --bg-color: #111118;
-    --pri-color: rgba(102, 101, 101, 0.808);
+    --bg-color: #181818;
+    --pri-color: rgba(102, 101, 101, 0.308);
     --sec-color: #FFC814;
     --destak: #FF0000;
 }

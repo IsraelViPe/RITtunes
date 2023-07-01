@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
-import MusicCard from '../components/MusicCard';
-import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import Loading from '../../components/Loading';
+import MusicCard from '../../components/MusicCard';
+import { getFavoriteSongs, removeSong } from '../../services/favoriteSongsAPI';
+import Container from './FovoritesStyles';
 
 export default class Favorites extends Component {
   state = {
@@ -42,10 +42,9 @@ export default class Favorites extends Component {
   render() {
     const { favoriteMusics, loading } = this.state;
     return (
-      <div>
-        <Header />
-        <div data-testid="page-favorites">
-          <h1>Favorites</h1>
+      <Container data-testid="page-favorites">
+        <div>
+          <h2>Favoritas</h2>
           { loading ? <Loading />
             : favoriteMusics
               .map((element) => (
@@ -55,10 +54,9 @@ export default class Favorites extends Component {
                   handleCLickFavorite={ this.removeFavorite }
                   checked
                 />
-
               )) }
         </div>
-      </div>
+      </Container>
     );
   }
 }

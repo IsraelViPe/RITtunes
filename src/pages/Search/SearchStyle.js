@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--bg-color);
 `;
 
@@ -18,7 +18,7 @@ export const SearchForm = styled.form`
   padding: 2rem;
   background-color: var(--pri-color);
   border-radius: 50rem;
-  box-shadow: 0 2px 10px var(--pri-color);
+  box-shadow: 0 2px 5px var(--pri-color);
 
   input {
     background-color: var(--pri-color);
@@ -50,20 +50,29 @@ export const SearchForm = styled.form`
 `;
 
 export const AlbunsList = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 2rem;
-    background-color: var(--bg-color);
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  background-color: var(--bg-color);
+  justify-content: center;
+  align-items: center;
 
-    h1 {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 756px) {
+      font-size: 1.2rem;
     }
-    div {
-        display: flex;
-        flex-wrap: wrap;
-    }
+  }
+`;
+
+export const CardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 2rem;
+  gap: 1.5rem;
 
 `;

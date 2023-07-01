@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUser } from '../services/userAPI';
 import images from '../assets/images';
-import Loading from './Loading';
 
 const HeaderNav = styled.header`
   display: flex;
@@ -11,8 +10,9 @@ const HeaderNav = styled.header`
   justify-content: center;
   gap: 3rem;
   align-items: center;
-  background-color: var(--bg-color);
+  background-color: black;
   width: 100%;
+  z-index: 10;
 
   nav {
     display: flex;
@@ -67,50 +67,53 @@ const MiniLogo = styled.div`
   }
 `;
 
-export default class Header extends Component {
+class Header extends Component {
   state = {
     user: {},
-    loading: true,
   };
 
   async componentDidMount() {
     const userObj = await getUser();
     this.setState({
       user: await userObj,
-      loading: false,
     });
   }
 
   render() {
-    const { user, loading } = this.state;
-    return (
-      <HeaderNav data-testid="header-component">
-        <MiniLogo>
-          <img src={ images.logo } alt="logo" />
-          <p data-testid="header-user-name">
-            {' '}
-            {user.name}
-            {' '}
-          </p>
-        </MiniLogo>
-        <nav>
-          <li>
-            <NavLink data-testid="link-to-search" to="/search">
-              Pesquisa
-            </NavLink>
-          </li>
-          <li>
-            <NavLink data-testid="link-to-favorites" to="/favorites">
-              Favoritos
-            </NavLink>
-          </li>
-          <li>
-            <NavLink data-testid="link-to-profile" to="/profile">
-              Perfil
-            </NavLink>
-          </li>
-        </nav>
-      </HeaderNav>
-    );
+    const { user } = this.state;
+    const { pathname } = this.props.location;
+    if (pathname !== '/') {
+      return (
+        <HeaderNav data-testid="header-component">
+          <MiniLogo>
+            <img src={ images.logo } alt="logo" />
+            <p data-testid="header-user-name">
+              {' '}
+              {user.name}
+              {' '}
+            </p>
+          </MiniLogo>
+          <nav>
+            <li>
+              <NavLink data-testid="link-to-search" to="/search">
+                Pesquisa
+              </NavLink>
+            </li>
+            <li>
+              <NavLink data-testid="link-to-favorites" to="/favorites">
+                Favoritos
+              </NavLink>
+            </li>
+            <li>
+              <NavLink data-testid="link-to-profile" to="/profile">
+                Perfil
+              </NavLink>
+            </li>
+          </nav>
+        </HeaderNav>
+      );
+    }
   }
 }
+
+export default withRouter(Header);

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
-import MusicCard from '../components/MusicCard';
-import getMusics from '../services/musicsAPI';
-import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
-import Loading from '../components/Loading';
+import Header from '../../components/Header';
+import MusicCard from '../../components/MusicCard';
+import getMusics from '../../services/musicsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../../services/favoriteSongsAPI';
+import Loading from '../../components/Loading';
+import { PageAlbum, Container, ContainerInfo, ImageContainer } from './AlbumStyle';
 
 export default class Album extends Component {
   state = {
@@ -79,21 +80,20 @@ export default class Album extends Component {
     const { albunInfo, musicList, loading, favoritesList } = this.state;
     const { artistName, collectionName, artworkUrl60 } = albunInfo;
     return (
-      <div>
-        <Header />
+      <Container>
         {loading ? <Loading /> : (
-          <div data-testid="page-album">
-            <div>
-              <div>
+          <PageAlbum PageAlbum data-testid="page-album">
+            <ContainerInfo>
+              <ImageContainer>
                 <img src={ artworkUrl60 } alt={ collectionName } />
-              </div>
-              <h3 data-testid="album-name">
-                { collectionName }
-              </h3>
+              </ImageContainer>
               <h4 data-testid="artist-name">
                 { artistName }
               </h4>
-            </div>
+              <p data-testid="album-name">
+                { collectionName }
+              </p>
+            </ContainerInfo>
             { musicList
               .map(({ trackName, previewUrl, trackId }, index) => index > 0 && (<MusicCard
                 key={ trackId }
@@ -104,9 +104,9 @@ export default class Album extends Component {
                 checked={ favoritesList
                   .some((element) => element.trackId === trackId) }
               />))}
-          </div>) }
+          </PageAlbum>) }
 
-      </div>
+      </Container>
     );
   }
 }
