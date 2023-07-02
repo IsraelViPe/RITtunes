@@ -41,13 +41,14 @@ export default class Favorites extends Component {
 
   render() {
     const { favoriteMusics, loading } = this.state;
+    console.log(favoriteMusics);
     return (
       <Container data-testid="page-favorites">
         <div>
           <h2>Favoritas</h2>
           { loading ? <Loading />
             : favoriteMusics
-              .map((element) => (
+              ?.map((element) => (
                 <MusicCard
                   key={ element.trackId }
                   { ...element }

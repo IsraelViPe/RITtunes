@@ -76,3 +76,12 @@ export const CardContainer = styled.div`
   gap: 1.5rem;
 
 `;
+
+export const NotFound = styled.p`
+  margin-top: 3rem;
+  font-size: larger;
+
+  @media (max-width: 756px) {
+      font-size: medium;
+    }
+`;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import { getUser, updateUser } from '../../services/userAPI';
+import { Container, Form } from './ProfileEditStyles';
 
 export default class ProfileEdit extends Component {
   state = {
@@ -24,7 +25,7 @@ export default class ProfileEdit extends Component {
         editedName: requesUserInfo.name,
         editedEmail: requesUserInfo.email,
         editedDescription: requesUserInfo.description,
-        editedImage: requesUserInfo.image,
+        editedImage: 'url da imagem',
         loading: false,
       });
     };
@@ -63,7 +64,7 @@ export default class ProfileEdit extends Component {
       editedDescription, editedImage, loading } = this.state;
     const emailValidateRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
     const perfilForm = (
-      <form>
+      <Form>
         <label
           htmlFor="name"
         >
@@ -89,13 +90,14 @@ export default class ProfileEdit extends Component {
         <label htmlFor="description">
           Descrição:
           <textarea
+            maxLength="90"
             data-testid="edit-input-description"
             name="editedDescription"
             value={ editedDescription }
             onChange={ this.handleChange }
             id="description"
             cols="30"
-            rows="10"
+            rows="3"
           />
         </label>
         <label htmlFor="foto">
@@ -117,17 +119,16 @@ export default class ProfileEdit extends Component {
         >
           Salvar
         </button>
-      </form>
+      </Form>
     );
     return (
-      <div>
-        <div data-testid="page-profile-edit">
-          <h1>Editar Perfil</h1>
-          {loading ? <Loading /> : perfilForm}
-          {loading && clickSubmit && <Loading /> }
-          {clickSubmit && !loading && <Redirect to="/profile" />}
-        </div>
-      </div>
+      <Container data-testid="page-profile-edit">
+        <h2>Editar Perfil</h2>
+        {loading ? <Loading /> : perfilForm}
+        {loading && clickSubmit && <Loading /> }
+        {clickSubmit && !loading && <Redirect to="/profile" />}
+      </Container>
+
     );
   }
 }

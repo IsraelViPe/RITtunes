@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CardAlbum from '../../components/CardAlbum';
 import Loading from '../../components/Loading';
 import searchAlbumsAPI from '../../services/searchAlbumsAPI';
-import { Container, SearchForm, AlbunsList, CardContainer } from './SearchStyle';
+import { Container, SearchForm, AlbunsList, CardContainer, NotFound } from './SearchStyle';
 
 export default class Search extends Component {
   state = {
@@ -43,7 +43,7 @@ export default class Search extends Component {
       fetchClicked, responseAPI, statusAPI } = this.state;
 
     const noAlbuns = (
-      <h1>Nenhum álbum foi encontrado</h1>
+      <NotFound>Nenhum álbum foi encontrado</NotFound>
     );
 
     const albunsRender = (
