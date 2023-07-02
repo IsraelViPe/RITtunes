@@ -13,6 +13,20 @@ const Card = styled.div`
   align-items: center;
   gap: 1rem;
 
+  button {
+    border-radius: 50rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+    border: none;
+    appearance: none;
+
+    audio {
+      opacity: 0.8;
+    }
+  }
+
   @media (max-width: 756px) {
     flex-direction: column;
     padding: 1rem;
@@ -44,14 +58,16 @@ export default class MusicCard extends Component {
     return (
       <Card>
         <p>{ trackName }</p>
-        <audio data-testid="audio-component" src={ previewUrl } controls>
-          <track kind="captions" />
-          O seu navegador não suporta o elemento
-          {' '}
-          {' '}
-          <code>audio</code>
-          .
-        </audio>
+        <button type="button">
+          <audio data-testid="audio-component" src={ previewUrl } controls>
+            <track kind="captions" />
+            O seu navegador não suporta o elemento
+            {' '}
+            {' '}
+            <code>audio</code>
+            .
+          </audio>
+        </button>
         <Like htmlFor={ trackId }>
           Favoritar
           <input

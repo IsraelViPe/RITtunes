@@ -15,9 +15,15 @@ export const PageAlbum = styled.div`
 export const ContainerInfo = styled.div`
     margin-top: 8rem;
     margin-bottom: 2rem;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media (max-width: 756px) {
+    font-family: var(--font-text);
+    font-size: 0.7rem;
+  }
 `;
 
 export const ImageContainer = styled.div`

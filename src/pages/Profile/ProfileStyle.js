@@ -36,15 +36,25 @@ export const PerfilCard = styled.div`
   div {
     display: flex;
     flex-direction: column;
+    width: 90%;
     gap: 0.2rem;
+    padding: 1rem;
     align-items: flex-start;
     p {
+      text-align: center;
       font-size: small;
       font-family: var(--font-text);
+      padding: 0.5rem;
+      background-color: var(--bg-color);
+      opacity: 0.7;
+      border-radius: 5%;
     }
 
     @media (max-width: 756px) {
       align-items: center;
+      h3 {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -63,7 +73,7 @@ export const ImgContainer = styled.div`
     width: 150px;
     height: 150px;
     object-fit: cover;
-    border-radius: 5%;
+    border-radius: 5px;
 
     @media (max-width: 756px) {
       width: 100px;
@@ -76,6 +86,7 @@ export const EditProfileLink = styled(Link)`
   background-color: var(--destak);
   border-radius: 50rem;
   color: var(--sec-color);
+  margin-top: 0.7rem;
   padding: 0.5rem;
   cursor: pointer;
   text-decoration: none;

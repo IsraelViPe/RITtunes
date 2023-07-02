@@ -37,6 +37,9 @@ const CardInfo = styled.div`
 
   span {
     text-align: center;
+    @media (max-width: 756px) {
+    display: none;
+  }
   }
 
 `;
