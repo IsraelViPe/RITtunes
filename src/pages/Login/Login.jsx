@@ -36,33 +36,35 @@ export default class Login extends Component {
     return (
       <>
         { clicked && <Loading /> }
-        { !clicked && <Container data-testid="page-login">
-          <div className="main">
-            { redirect && <Redirect to="/search" /> }
-            <h1>Login</h1>
-            <div className="logo"><img src={ images.logo } alt="logotipo" /></div>
-            <form>
-              <label htmlFor="name">
-                <input
-                  onChange={ this.handleInput }
-                  data-testid="login-name-input"
-                  placeholder="Login Name "
-                  name="inputName"
-                  type="text"
-                />
-              </label>
-              <Button
-                disabled={ inputName.length < minInputlenght }
-                type="button"
-                onClick={ this.handleClick }
-                data-testid="login-submit-button"
-              >
-                Entrar
-              </Button>
-            </form>
-          </div>
+        { !clicked && (
+          <Container data-testid="page-login">
+            <div className="main">
+              { redirect && <Redirect to="/search" /> }
+              <h1>Login</h1>
+              <div className="logo"><img src={ images.logo } alt="logotipo" /></div>
+              <form>
+                <label htmlFor="name">
+                  <input
+                    onChange={ this.handleInput }
+                    data-testid="login-name-input"
+                    placeholder="Login Name "
+                    name="inputName"
+                    type="text"
+                  />
+                </label>
+                <Button
+                  disabled={ inputName.length < minInputlenght }
+                  type="button"
+                  onClick={ this.handleClick }
+                  data-testid="login-submit-button"
+                >
+                  Entrar
+                </Button>
+              </form>
+            </div>
 
-        </Container>}
+          </Container>
+        )}
       </>
     );
   }

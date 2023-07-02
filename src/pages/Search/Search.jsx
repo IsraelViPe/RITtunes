@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import CardAlbum from '../../components/CardAlbum';
 import Loading from '../../components/Loading';
 import searchAlbumsAPI from '../../services/searchAlbumsAPI';
-import { Container, SearchForm, AlbunsList, CardContainer, NotFound } from './SearchStyle';
+import { Container, SearchForm, AlbunsList,
+  CardContainer, NotFound } from './SearchStyle';
 
 export default class Search extends Component {
   state = {
@@ -28,13 +29,18 @@ export default class Search extends Component {
       fetchClicked: true,
       responseAPI: false,
     });
-    const fetchAlbuns = await searchAlbumsAPI(searchField);
-    this.setState({
-      fetchClicked: false,
-      responseAPI: true,
-      statusAPI: fetchAlbuns.length !== 0,
-      listAlbuns: await fetchAlbuns,
-    });
+    try {
+      const fetchAlbuns = await searchAlbumsAPI(searchField);
+      this.setState({
+        fetchClicked: false,
+        responseAPI: true,
+        statusAPI: fetchAlbuns.length !== 0,
+        listAlbuns: await fetchAlbuns,
+      });
+    } catch (e) {
+      console.log(aqui);
+      console.error(e);
+    }
   };
 
   render() {

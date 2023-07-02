@@ -1,4 +1,4 @@
-import images from "../assets/images";
+import images from '../assets/images';
 
 const USER_KEY = 'user';
 const TIMEOUT = 1500;
