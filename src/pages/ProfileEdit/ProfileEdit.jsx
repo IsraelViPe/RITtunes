@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
-import { getUser, updateUser } from '../services/userAPI';
+import Loading from '../../components/Loading';
+import { getUser, updateUser } from '../../services/userAPI';
 
 export default class ProfileEdit extends Component {
   state = {
@@ -122,7 +121,6 @@ export default class ProfileEdit extends Component {
     );
     return (
       <div>
-        <Header />
         <div data-testid="page-profile-edit">
           <h1>Editar Perfil</h1>
           {loading ? <Loading /> : perfilForm}

@@ -1,3 +1,5 @@
+import images from "../assets/images";
+
 const USER_KEY = 'user';
 const TIMEOUT = 1500;
 const SUCCESS_STATUS = 'OK';
@@ -22,8 +24,8 @@ export const getUser = () => new Promise((resolve) => {
 export const createUser = (user) => new Promise((resolve) => {
   const emptyUser = {
     name: '',
-    email: '',
-    image: '',
+    email: 'myfakemail@mail.com',
+    image: images.profile,
     description: '',
   };
   saveUser({ ...emptyUser, ...user });

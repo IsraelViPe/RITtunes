@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { getUser } from '../services/userAPI';
 import images from '../assets/images';
 
@@ -81,7 +82,7 @@ class Header extends Component {
 
   render() {
     const { user } = this.state;
-    const { pathname } = this.props.location;
+    const { location: { pathname } } = this.props;
     if (pathname !== '/') {
       return (
         <HeaderNav data-testid="header-component">
@@ -101,7 +102,7 @@ class Header extends Component {
             </li>
             <li>
               <NavLink data-testid="link-to-favorites" to="/favorites">
-                Favoritos
+                Favoritas
               </NavLink>
             </li>
             <li>
@@ -117,3 +118,9 @@ class Header extends Component {
 }
 
 export default withRouter(Header);
+
+Header.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};
